@@ -3,12 +3,14 @@ name: Push
 on: [push]
 
 jobs:
-  test:
-    name: tatergem
+  test-python:
+    name: push-test
     runs-on: ubuntu-latest
     container:
-      image: alpine:latest
+      image: python:3-slim
     steps:
       - uses: actions/checkout@v2
-      - run: echo "here we go"
+      - run: pip install poetry
+      - run: poetry install
+      - run: poetry run flake8 hello.py
 
