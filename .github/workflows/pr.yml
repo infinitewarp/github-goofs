@@ -3,12 +3,14 @@ name: PR
 on: [pull_request]
 
 jobs:
-  test:
-    name: potato
+  test-python:
+    name: pr-test
     runs-on: ubuntu-latest
     container:
-      image: alpine:latest
+      image: python:3-slim
     steps:
       - uses: actions/checkout@v2
-      - run: echo "hello world"
+      - run: pip install poetry
+      - run: poetry install
+      - run: poetry run flake8 hello.py
 
