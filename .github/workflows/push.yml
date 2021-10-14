@@ -1,0 +1,14 @@
+name: Push
+
+on: [push]
+
+jobs:
+  test:
+    name: tatergem
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "here we go"
+
