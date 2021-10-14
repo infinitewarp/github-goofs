@@ -1,0 +1,14 @@
+name: PR
+
+on: [pull_request]
+
+jobs:
+  test:
+    name: potato
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "hello world"
+
