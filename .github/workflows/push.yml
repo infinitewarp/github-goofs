@@ -29,7 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Greeting
-        run: echo "$MESSAGE"
+        run: |
+          echo "$MESSAGE"
+          echo "${MESSAGE:=MESSAGE was not set}"
+          echo "${MENSAJE:=it is a secret to everybody}"
       - name: Push to Registry
         uses: redhat-actions/push-to-registry@v2
         with:
