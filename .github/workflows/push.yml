@@ -2,6 +2,9 @@ name: Push
 
 on: [push]
 
+env:
+  MESSAGE: Hello there.
+
 jobs:
   test-python:
     name: push-test
@@ -13,4 +16,11 @@ jobs:
       - run: pip install poetry
       - run: poetry install
       - run: poetry run flake8 hello.py
+  greetings:
+    name: push-greeting
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    steps:
+      - run: echo "$MESSAGE"
 
