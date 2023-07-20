@@ -28,6 +28,8 @@ jobs:
   push-to-registry:
     runs-on: ubuntu-latest
     steps:
+      - name: Greeting
+        run: echo "$MESSAGE"
       - name: Push to Registry
         uses: redhat-actions/push-to-registry@v2
         with:
