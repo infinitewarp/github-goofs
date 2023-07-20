@@ -17,24 +17,24 @@ jobs:
       - run: pip install poetry
       - run: poetry install
       - run: poetry run flake8 hello.py
-  greetings:
-    name: push-greeting
-    runs-on: ubuntu-latest
-    container:
-      image: ${{ vars.ALPINE_IMAGE }}
-    steps:
-      - run: echo "$MESSAGE"
+#  greetings:
+#    name: push-greeting
+#    runs-on: ubuntu-latest
+#    container:
+#      image: ${{ vars.ALPINE_IMAGE }}
+#    steps:
+#      - run: echo "$MESSAGE"
 
   push-to-registry:
     runs-on: ubuntu-latest
     steps:
-      - name: Greeting
-        run: |
-          echo ${{ env.MESSAGE }}
-          echo ${{ vars.MESSAGE }}
-          echo "$MESSAGE"
-          echo "${MESSAGE:=MESSAGE was not set}"
-          echo "${MENSAJE:=it is a secret to everybody}"
+#      - name: Greeting
+#        run: |
+#          echo ${{ env.MESSAGE }}
+#          echo ${{ vars.MESSAGE }}
+#          echo "$MESSAGE"
+#          echo "${MESSAGE:=MESSAGE was not set}"
+#          echo "${MENSAJE:=it is a secret to everybody}"
       - name: Push to Registry
         uses: redhat-actions/push-to-registry@v2
         with:
