@@ -3,7 +3,7 @@ name: Push
 on: [push]
 
 env:
-  IMAGE_NAME: ${{ vars.IMAGE_NAME == '' && 'infinitewarp/potato' || vars.IMAGE_NAME }}
+  IMAGE_NAME: ${{ vars.IMAGE_NAME || 'infinitewarp/potato' }}
 
 jobs:
   test-python:
