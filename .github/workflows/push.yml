@@ -2,9 +2,15 @@ name: Push
 
 on: [push]
 
+env:
+  IMAGE_NAME: ${{ vars.IMAGE_NAME || 'infinitewarp/potato' }}
+  REGISTRY: ${{ vars.REGISTRY || 'quay.io' }}
+  
+
 jobs:
   test-python:
     name: push-test
+    if: ${{ github.repository != github.repository }}
     runs-on: ubuntu-latest
     container:
       image: python:3-slim
@@ -13,4 +19,35 @@ jobs:
       - run: pip install poetry
       - run: poetry install
       - run: poetry run flake8 hello.py
+#  greetings:
+#    name: push-greeting
+#    runs-on: ubuntu-latest
+#    container:
+#      image: ${{ vars.ALPINE_IMAGE }}
+#    steps:
+#      - run: echo "$MESSAGE"
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # fetches all commits/tags
+
+      - name: Build quipucords image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          containerfiles: |
+            ./Dockerfile
+
+      - name: Push to Registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}

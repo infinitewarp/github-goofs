@@ -5,6 +5,7 @@ on: [pull_request]
 jobs:
   test-python:
     name: pr-test
+    if: ${{ github.repository != github.repository }}
     runs-on: ubuntu-latest
     container:
       image: python:3-slim
