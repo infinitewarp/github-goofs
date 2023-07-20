@@ -2,8 +2,8 @@ name: Push
 
 on: [push]
 
-env:
-  MESSAGE: ${{ vars.MESSAGE }}
+#env:
+#  MESSAGE: ${{ vars.MESSAGE }}
 
 jobs:
   test-python:
@@ -30,14 +30,16 @@ jobs:
     steps:
       - name: Greeting
         run: |
+          echo ${{ env.MESSAGE }}
+          echo ${{ vars.MESSAGE }}
           echo "$MESSAGE"
           echo "${MESSAGE:=MESSAGE was not set}"
           echo "${MENSAJE:=it is a secret to everybody}"
       - name: Push to Registry
         uses: redhat-actions/push-to-registry@v2
         with:
-          #image: ${{ vars.IMAGE_NAME }}
-          image: ${{ env.MESSAGE }}
+          image: ${{ vars.IMAGE_NAME }}
+          #image: ${{ env.MESSAGE }}
           registry: ${{ vars.REGISTRY }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
