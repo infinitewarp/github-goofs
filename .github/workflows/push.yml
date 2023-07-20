@@ -2,8 +2,8 @@ name: Push
 
 on: [push]
 
-env:
-  MESSAGE: Hello there.
+#env:
+#  MESSAGE: Hello there.
 
 jobs:
   test-python:
