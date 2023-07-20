@@ -4,6 +4,8 @@ on: [push]
 
 env:
   IMAGE_NAME: ${{ vars.IMAGE_NAME || 'infinitewarp/potato' }}
+  REGISTRY: ${{ vars.REGISTRY || 'quay.io' }}
+  
 
 jobs:
   test-python:
@@ -46,7 +48,6 @@ jobs:
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ env.IMAGE_NAME }}
-          #image: ${{ env.MESSAGE }}
-          registry: ${{ vars.REGISTRY }}
+          registry: ${{ env.REGISTRY }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
