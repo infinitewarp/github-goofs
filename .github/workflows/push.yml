@@ -24,11 +24,14 @@ jobs:
       image: ${{ vars.ALPINE_IMAGE }}
     steps:
       - run: echo "$MESSAGE"
+
   push-to-registry:
-    name: Push to Registry
-    uses: redhat-actions/push-to-registry@v2
-    with:
-      image: ${{ vars.IMAGE_NAME }}
-      registry: ${{ vars.REGISTRY }}
-      username: ${{ secrets.REGISTRY_USERNAME }}
-      password: ${{ secrets.REGISTRY_PASSWORD }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Push to Registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ vars.IMAGE_NAME }}
+          registry: ${{ vars.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
