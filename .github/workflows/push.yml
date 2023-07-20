@@ -25,16 +25,23 @@ jobs:
 #    steps:
 #      - run: echo "$MESSAGE"
 
-  push-to-registry:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-#      - name: Greeting
-#        run: |
-#          echo ${{ env.MESSAGE }}
-#          echo ${{ vars.MESSAGE }}
-#          echo "$MESSAGE"
-#          echo "${MESSAGE:=MESSAGE was not set}"
-#          echo "${MENSAJE:=it is a secret to everybody}"
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # fetches all commits/tags
+
+      - name: Build quipucords image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ vars.IMAGE_NAME }}
+          containerfiles: |
+            ./Dockerfile
+
       - name: Push to Registry
         uses: redhat-actions/push-to-registry@v2
         with:
