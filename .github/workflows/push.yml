@@ -17,18 +17,18 @@ jobs:
       - run: pip install poetry
       - run: poetry install
       - run: poetry run flake8 hello.py
-  greetings:
-    name: push-greeting
+  envtest:
     runs-on: ubuntu-latest
-    container:
-      image: ${{ vars.ALPINE_IMAGE }}
     steps:
-      - run: echo "$MESSAGE"
-  push-to-registry:
-    name: Push to Registry
-    uses: redhat-actions/push-to-registry@v2
-    with:
-      image: ${{ vars.IMAGE_NAME }}
-      registry: ${{ vars.REGISTRY }}
-      username: ${{ secrets.REGISTRY_USERNAME }}
-      password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: push-greeting
+        container:
+          image: ${{ vars.ALPINE_IMAGE }}
+        steps:
+        - run: echo "$MESSAGE"
+      - name: Push to Registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ vars.IMAGE_NAME }}
+          registry: ${{ vars.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
