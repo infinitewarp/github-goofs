@@ -36,7 +36,8 @@ jobs:
       - name: Push to Registry
         uses: redhat-actions/push-to-registry@v2
         with:
-          image: ${{ vars.IMAGE_NAME }}
+          #image: ${{ vars.IMAGE_NAME }}
+          image: ${{ env.MESSAGE }}
           registry: ${{ vars.REGISTRY }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
