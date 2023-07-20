@@ -18,9 +18,9 @@ jobs:
       - run: poetry run flake8 hello.py
   greetings:
     name: push-greeting
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.UBUNTU_LATEST }}
     container:
-      image: alpine:latest
+      image: ${{ vars.ALPINE_IMAGE }}
     steps:
       - run: echo "$MESSAGE"
 
